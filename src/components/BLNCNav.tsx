@@ -3,7 +3,7 @@ const BLNCNav = () => {
     <nav className="sticky top-0 z-50 flex items-center justify-between px-12 h-[70px] bg-background/97 border-b border-border backdrop-blur-sm">
       <div className="font-display font-bold text-lg text-foreground tracking-wider">BLNC Holdings</div>
       <ul className="flex gap-1.5 list-none">
-        {["Home", "About", "Services", "Contact"].map((link) => (
+        {["Home", "About", "Services", "Contact", "Privacy Notice"].map((link) => (
           <li key={link}>
             <a
               href={`#${link.toLowerCase()}`}
