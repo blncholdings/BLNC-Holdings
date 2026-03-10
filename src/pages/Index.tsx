@@ -3,6 +3,7 @@ import BLNCHero from "@/components/BLNCHero";
 import BLNCAbout from "@/components/BLNCAbout";
 import BLNCServices from "@/components/BLNCServices";
 import BLNCContact from "@/components/BLNCContact";
+import BLNCPrivacyNotice from "@/components/BLNCPrivacyNotice";
 import BLNCFooter from "@/components/BLNCFooter";
 
 const Index = () => {
@@ -13,6 +14,7 @@ const Index = () => {
       <BLNCAbout />
       <BLNCServices />
       <BLNCContact />
+      <BLNCPrivacyNotice />
       <BLNCFooter />
     </div>
   );
