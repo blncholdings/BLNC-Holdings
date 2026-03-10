@@ -50,7 +50,7 @@ const BLNCServices = () => {
           <h2 className="font-display font-semibold text-3xl md:text-4xl text-foreground mb-4">
             Three Pillars of Business Excellence
           </h2>
-          <p className="text-muted-foreground text-base max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-base max-w-2xl">
             Integrated services designed to address your legal, technological, and strategic needs
             under one roof.
           </p>
