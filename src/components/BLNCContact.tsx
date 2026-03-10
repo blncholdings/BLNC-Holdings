@@ -51,14 +51,6 @@ const BLNCContact = () => {
             </p>
           </div>
         </div>
-
-        <div className="blnc-privacy-notice">
-          <p className="text-foreground text-sm font-medium mb-1">Privacy Notice</p>
-          <p className="text-muted-foreground text-xs leading-relaxed">
-            Any information you share is handled in accordance with our privacy-first principles
-            and applicable data protection legislation, including POPIA.
-          </p>
-        </div>
       </div>
     </section>
   );
