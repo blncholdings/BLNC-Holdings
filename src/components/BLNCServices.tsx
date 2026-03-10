@@ -45,7 +45,7 @@ const BLNCServices = () => {
     <section id="services" className="py-24">
       <div className="section-container">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="mb-16">
           <p className="eyebrow">Our Services</p>
           <h2 className="font-display font-semibold text-3xl md:text-4xl text-foreground mb-4">
             Three Pillars of Business Excellence
