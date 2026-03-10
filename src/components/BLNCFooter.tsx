@@ -15,7 +15,7 @@ const BLNCFooter = () => {
           {["Home", "About", "Services", "Contact", "Privacy Notice"].map((l) => (
             <a
               key={l}
-              href={`#${l.toLowerCase()}`}
+              href={`#${l.toLowerCase().replace(/\s+/g, '-')}`}
               className="text-muted-foreground text-xs hover:text-foreground transition-colors"
             >
               {l}
