@@ -6,7 +6,7 @@ const BLNCNav = () => {
         {["Home", "About", "Services", "Contact", "Privacy Notice"].map((link) => (
           <li key={link}>
             <a
-              href={`#${link.toLowerCase()}`}
+              href={`#${link.toLowerCase().replace(/\s+/g, '-')}`}
               className="text-sm font-medium text-muted-foreground px-4 py-[7px] rounded-[7px] border border-transparent hover:text-foreground hover:bg-[hsl(var(--surface-hover))] transition-colors"
             >
               {link}

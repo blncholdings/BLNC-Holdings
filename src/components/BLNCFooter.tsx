@@ -12,7 +12,7 @@ const BLNCFooter = () => {
         </div>
 
         <div className="flex gap-6">
-          {["Home", "About", "Services", "Contact"].map((l) => (
+          {["Home", "About", "Services", "Contact", "Privacy Notice"].map((l) => (
             <a
               key={l}
               href={`#${l.toLowerCase()}`}
