@@ -15,7 +15,7 @@ const BLNCHero = () => {
       <h1 className="font-display font-bold text-5xl md:text-6xl leading-tight text-foreground relative z-10 mb-2">
         Where Law, Technology
       </h1>
-      <h1 className="font-display font-bold text-5xl md:text-6xl leading-tight text-foreground relative z-10 mb-6">
+      <h1 className="font-display font-bold text-5xl md:text-6xl leading-tight text-primary relative z-10 mb-6">
         & Strategy Align
       </h1>
       <p className="text-muted-foreground text-lg max-w-2xl relative z-10 mb-10 leading-relaxed">
