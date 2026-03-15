@@ -2,7 +2,7 @@ import { Mail, Globe } from "lucide-react";
 
 const BLNCContact = () => {
   return (
-    <section id="contact" className="py-24">
+    <section className="py-24 flex-1">
       <div className="section-container">
         <p className="eyebrow">Contact Us</p>
         <h2 className="font-display font-semibold text-3xl md:text-4xl text-foreground mb-4">
