@@ -15,8 +15,8 @@ interface BLNCFooterProps {
 
 const BLNCFooter = ({ activeTab, onNavigate }: BLNCFooterProps) => {
   return (
-    <footer className="border-t border-border py-12">
-      <div className="section-container flex flex-col md:flex-row items-center justify-between gap-6">
+    <footer className="border-t border-border py-4">
+      <div className="section-container flex flex-col md:flex-row items-center justify-between gap-3">
         <div>
           <p className="font-display font-bold text-lg text-foreground tracking-wider">
             BLNC Holdings
