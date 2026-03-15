@@ -31,6 +31,12 @@ const privacyPrinciples = [
   ["Our Standard", "We apply the same POPIA and international data protection obligations to ourselves that we advise clients to meet"],
 ];
 
+const aiSovereignty = {
+  title: "Local AI Infrastructure",
+  subtitle: "Client Data Sovereignty — Guaranteed",
+  desc: "Our AI systems run on local infrastructure with human-in-the-loop oversight built into every workflow. Your documents never leave our controlled environment and never reach an external server — ensuring complete data sovereignty at every stage of engagement.",
+};
+
 const fadeItem = {
   hidden: { opacity: 0, y: 18 },
   visible: (i: number) => ({
@@ -196,6 +202,19 @@ const BLNCServices = () => {
                   <p className="text-muted-foreground text-xs">{desc}</p>
                 </div>
               ))}
+            </div>
+
+
+            {/* AI Sovereignty highlight */}
+            <div className="blnc-callout relative overflow-hidden mb-6">
+              <div className="absolute inset-0 bg-primary/5 rounded-[10px]" />
+              <div className="relative">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-primary text-xs font-semibold tracking-wide uppercase">{aiSovereignty.subtitle}</span>
+                </div>
+                <p className="text-foreground text-sm font-medium mb-1">{aiSovereignty.title}</p>
+                <p className="text-muted-foreground text-xs leading-relaxed">{aiSovereignty.desc}</p>
+              </div>
             </div>
 
             <div className="blnc-callout">
