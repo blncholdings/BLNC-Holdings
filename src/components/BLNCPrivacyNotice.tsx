@@ -2,7 +2,7 @@ import { ShieldCheck } from "lucide-react";
 
 const BLNCPrivacyNotice = () => {
   return (
-    <section id="privacy-notice" className="py-24">
+    <section className="py-24 flex-1">
       <div className="section-container">
         <p className="eyebrow">Privacy Notice</p>
         <h2 className="font-display font-semibold text-3xl md:text-4xl text-foreground mb-4">

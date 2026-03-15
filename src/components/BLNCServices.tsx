@@ -48,7 +48,7 @@ const fadeItem = {
 
 const BLNCServices = () => {
   return (
-    <section id="services" className="py-24">
+    <section className="py-24 flex-1">
       <div className="section-container">
         {/* Header */}
         <div className="mb-16">

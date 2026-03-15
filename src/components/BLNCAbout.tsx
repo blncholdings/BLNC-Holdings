@@ -1,4 +1,4 @@
-import { Scale } from "lucide-react";
+import { Scale, Sparkles } from "lucide-react";
 
 const visionMission = [
   {
@@ -28,7 +28,7 @@ const coreValues = [
 
 const BLNCAbout = () => {
   return (
-    <section id="about" className="py-24">
+    <section className="py-24 flex-1">
       <div className="section-container">
         {/* Top section */}
         <div className="mb-20">
@@ -55,6 +55,32 @@ const BLNCAbout = () => {
                 <p className="text-muted-foreground text-sm leading-relaxed">{c.text}</p>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Legal Intelligence Announcement */}
+        <div className="mb-20">
+          <div className="relative overflow-hidden rounded-2xl border border-[hsl(var(--accent-border))] bg-gradient-to-br from-[hsl(var(--accent-bg))] to-card p-10 md:p-12">
+            {/* Subtle glow */}
+            <div className="absolute -top-20 -right-20 w-64 h-64 bg-primary/10 rounded-full blur-[100px] pointer-events-none" />
+            <div className="relative flex items-start gap-5">
+              <div className="w-12 h-12 rounded-xl bg-primary/15 border border-primary/20 flex items-center justify-center flex-shrink-0 mt-1">
+                <Sparkles className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <p className="text-primary text-xs font-semibold tracking-wide uppercase mb-2">
+                  Coming Soon — Legal Intelligence
+                </p>
+                <h3 className="font-display font-semibold text-xl md:text-2xl text-foreground mb-3">
+                  Proprietary Legal Intelligence, Built on Privacy by Design
+                </h3>
+                <p className="text-muted-foreground text-sm leading-relaxed max-w-2xl">
+                  Beyond advisory and consulting services, BLNC is developing a proprietary legal
+                  intelligence tool — built in strict accordance with our privacy by design principles.
+                  Because access to enterprise-grade legal intelligence should not be reserved for the few.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
