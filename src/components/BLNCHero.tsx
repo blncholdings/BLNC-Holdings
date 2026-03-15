@@ -1,9 +1,12 @@
-const BLNCHero = () => {
+import type { TabKey } from "@/pages/Index";
+
+interface BLNCHeroProps {
+  onNavigate: (tab: TabKey) => void;
+}
+
+const BLNCHero = ({ onNavigate }: BLNCHeroProps) => {
   return (
-    <section
-      id="home"
-      className="relative flex flex-col items-center justify-center text-center min-h-screen px-6 overflow-hidden"
-    >
+    <section className="relative flex flex-col items-center justify-center text-center flex-1 px-6 overflow-hidden">
       {/* Decorative rings */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="absolute w-[460px] h-[460px] rounded-full border border-border" />
@@ -26,18 +29,18 @@ const BLNCHero = () => {
         to help organisations navigate complexity with clarity and confidence.
       </p>
       <div className="flex gap-4 relative z-10">
-        <a
-          href="#about"
+        <button
+          onClick={() => onNavigate("about")}
           className="inline-flex items-center gap-2.5 bg-primary text-primary-foreground px-8 py-3.5 rounded-lg text-[15px] font-semibold hover:opacity-90 transition-opacity"
         >
           Discover Our Story →
-        </a>
-        <a
-          href="#services"
+        </button>
+        <button
+          onClick={() => onNavigate("services")}
           className="inline-flex items-center gap-2.5 border border-border text-foreground px-8 py-3.5 rounded-lg text-[15px] font-semibold bg-[hsl(var(--surface-overlay))] hover:bg-[hsl(var(--surface-hover))] transition-colors"
         >
           Explore Services
-        </a>
+        </button>
       </div>
     </section>
   );

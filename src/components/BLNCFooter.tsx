@@ -1,4 +1,19 @@
-const BLNCFooter = () => {
+import type { TabKey } from "@/pages/Index";
+
+const tabs: { label: string; key: TabKey }[] = [
+  { label: "Home", key: "home" },
+  { label: "About", key: "about" },
+  { label: "Services", key: "services" },
+  { label: "Contact", key: "contact" },
+  { label: "Privacy Notice", key: "privacy-notice" },
+];
+
+interface BLNCFooterProps {
+  activeTab: TabKey;
+  onNavigate: (tab: TabKey) => void;
+}
+
+const BLNCFooter = ({ activeTab, onNavigate }: BLNCFooterProps) => {
   return (
     <footer className="border-t border-border py-12">
       <div className="section-container flex flex-col md:flex-row items-center justify-between gap-6">
@@ -12,14 +27,16 @@ const BLNCFooter = () => {
         </div>
 
         <div className="flex gap-6">
-          {["Home", "About", "Services", "Contact", "Privacy Notice"].map((l) => (
-            <a
-              key={l}
-              href={`#${l.toLowerCase().replace(/\s+/g, '-')}`}
-              className="text-muted-foreground text-xs hover:text-foreground transition-colors"
+          {tabs.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => onNavigate(tab.key)}
+              className={`text-xs transition-colors ${
+                activeTab === tab.key ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+              }`}
             >
-              {l}
-            </a>
+              {tab.label}
+            </button>
           ))}
         </div>
 
