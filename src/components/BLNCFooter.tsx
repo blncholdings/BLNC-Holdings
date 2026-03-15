@@ -41,7 +41,7 @@ const BLNCFooter = ({ activeTab, onNavigate }: BLNCFooterProps) => {
         </div>
 
         <p className="text-muted-foreground text-xs">
-          © 2026 BLNC Holdings. All rights reserved.
+          © 2025 BLNC Holdings. All rights reserved.
         </p>
       </div>
     </footer>
