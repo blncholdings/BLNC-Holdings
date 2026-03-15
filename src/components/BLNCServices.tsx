@@ -204,6 +204,19 @@ const BLNCServices = () => {
               ))}
             </div>
 
+
+            {/* AI Sovereignty highlight */}
+            <div className="blnc-callout relative overflow-hidden mb-6">
+              <div className="absolute inset-0 bg-primary/5 rounded-[10px]" />
+              <div className="relative">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-primary text-xs font-semibold tracking-wide uppercase">{aiSovereignty.subtitle}</span>
+                </div>
+                <p className="text-foreground text-sm font-medium mb-1">{aiSovereignty.title}</p>
+                <p className="text-muted-foreground text-xs leading-relaxed">{aiSovereignty.desc}</p>
+              </div>
+            </div>
+
             <div className="blnc-callout">
               <p className="text-primary text-xs font-semibold mb-1">🛡 Our Commitment to You</p>
               <p className="text-muted-foreground text-xs leading-relaxed">
