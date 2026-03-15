@@ -31,6 +31,12 @@ const privacyPrinciples = [
   ["Our Standard", "We apply the same POPIA and international data protection obligations to ourselves that we advise clients to meet"],
 ];
 
+const aiSovereignty = {
+  title: "Local AI Infrastructure",
+  subtitle: "Client Data Sovereignty — Guaranteed",
+  desc: "Our AI systems run on local infrastructure with human-in-the-loop oversight built into every workflow. Your documents never leave our controlled environment and never reach an external server — ensuring complete data sovereignty at every stage of engagement.",
+};
+
 const fadeItem = {
   hidden: { opacity: 0, y: 18 },
   visible: (i: number) => ({
