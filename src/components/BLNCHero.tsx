@@ -12,12 +12,15 @@ const BLNCHero = () => {
       </div>
 
       <p className="eyebrow relative z-10">Legal • Technology • Strategy</p>
-      <h1 className="font-display font-bold text-5xl md:text-6xl leading-tight text-foreground relative z-10 mb-2">
-        Where Law, Technology
-      </h1>
-      <h1 className="font-display font-bold text-5xl md:text-6xl leading-tight text-primary relative z-10 mb-6">
-        & Strategy Align
-      </h1>
+      <div className="relative z-10">
+        <div className="absolute inset-0 blur-[120px] bg-primary/20 rounded-full scale-150 pointer-events-none" />
+        <h1 className="font-display font-bold text-5xl md:text-6xl leading-tight text-foreground relative mb-2">
+          Where Law, Technology
+        </h1>
+        <h1 className="font-display font-bold text-5xl md:text-6xl leading-tight text-primary relative mb-6">
+          & Strategy Align
+        </h1>
+      </div>
       <p className="text-muted-foreground text-lg max-w-2xl relative z-10 mb-10 leading-relaxed">
         BLNC Holdings provides legal advisory, legal intelligence, and strategic business services
         to help organisations navigate complexity with clarity and confidence.
