@@ -26,19 +26,6 @@ const BLNCFooter = ({ activeTab, onNavigate }: BLNCFooterProps) => {
           </p>
         </div>
 
-        <div className="flex gap-6">
-          {tabs.map((tab) => (
-            <button
-              key={tab.key}
-              onClick={() => onNavigate(tab.key)}
-              className={`text-xs transition-colors ${
-                activeTab === tab.key ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
 
         <p className="text-muted-foreground text-xs">
           © 2025 BLNC Holdings. All rights reserved.
