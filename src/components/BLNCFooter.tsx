@@ -16,18 +16,13 @@ interface BLNCFooterProps {
 const BLNCFooter = ({ activeTab, onNavigate }: BLNCFooterProps) => {
   return (
     <footer className="border-t border-border py-4">
-      <div className="section-container flex flex-col md:flex-row items-center justify-between gap-3">
-        <div>
-          <p className="font-display font-bold text-lg text-foreground tracking-wider">
-            BLNC Holdings
-          </p>
-          <p className="text-muted-foreground text-xs">
-            Where Law, Technology & Strategy Align
-          </p>
+      <div className="flex w-full flex-col items-start justify-between gap-2 px-12 md:flex-row md:items-start">
+        <div className="text-xs text-muted-foreground">
+          <p>BLNC Holdings</p>
+          <p>Where Law, Technology & Strategy Align</p>
         </div>
 
-
-        <p className="text-muted-foreground text-xs">
+        <p className="text-xs text-muted-foreground md:text-right">
           © 2025 BLNC Holdings. All rights reserved.
         </p>
       </div>
