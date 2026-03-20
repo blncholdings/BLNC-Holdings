@@ -1,34 +1,668 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- TODO: Set the document title to the name of your application -->
-    <title>BLNC Holdings</title>
-    <meta name="description" content="BLNC Holdings is a remote first legal technology and advisory firm serving founders and growing businesses.">
-    <meta name="author" content="Lovable" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BLNC Holdings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <!-- TODO: Update og:title to match your application name -->
-    
-    
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6ac36bdc-e028-434b-a14a-07d4d51b075a/id-preview-8475a277--23f0b95f-9a68-423c-832f-da636e2359fe.lovable.app-1773589187865.png">
+    :root {
+      --bg:              hsl(222, 47%, 11%);
+      --bg-nav:          hsl(222, 47%, 11%);
+      --bg-card:         hsl(213, 33%, 17%);
+      --accent:          hsl(217, 91%, 60%);
+      --accent-lo:       hsla(217, 91%, 60%, 0.07);
+      --accent-border:   hsla(217, 91%, 60%, 0.2);
+      --surface-overlay: hsla(0, 0%, 100%, 0.04);
+      --surface-hover:   hsla(0, 0%, 100%, 0.06);
+      --text:            #ffffff;
+      --text-sub:        #94a3b8;
+      --border:          hsla(0, 0%, 100%, 0.08);
+    }
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@Lovable" />
-    <meta name="twitter:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6ac36bdc-e028-434b-a14a-07d4d51b075a/id-preview-8475a277--23f0b95f-9a68-423c-832f-da636e2359fe.lovable.app-1773589187865.png">
-    
-  
-  
-  
-  <meta property="og:title" content="BLNC Holdings">
-  <meta name="twitter:title" content="BLNC Holdings">
-  <meta property="og:description" content="BLNC Holdings is a remote first legal technology and advisory firm serving founders and growing businesses.">
-  <meta name="twitter:description" content="BLNC Holdings is a remote first legal technology and advisory firm serving founders and growing businesses.">
+    html, body {
+      height: 100%; font-family: 'Inter', sans-serif;
+      background: var(--bg); color: var(--text); overflow: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      height: 70px;
+      background: hsla(222, 47%, 11%, 0.97);
+      backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px; font-weight: 700; letter-spacing: 0.05em; color: var(--text);
+    }
+    .nav-links { display: flex; gap: 2px; }
+    .nav-links button {
+      background: none; border: none; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500;
+      color: var(--text-sub); padding: 7px 16px; border-radius: 7px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-links button:hover,
+    .nav-links button.active { color: #fff; background: var(--surface-hover); }
+
+    /* Mobile hamburger */
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--text); border-radius: 2px;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile menu drawer */
+    .mobile-menu {
+      display: none; position: fixed; top: 70px; left: 0; right: 0; z-index: 49;
+      background: hsla(222, 47%, 11%, 0.98);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px 20px; flex-direction: column; gap: 4px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu button {
+      background: none; border: none; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 500;
+      color: var(--text-sub); padding: 10px 14px; border-radius: 7px;
+      text-align: left; transition: background 0.15s, color 0.15s;
+    }
+    .mobile-menu button:hover,
+    .mobile-menu button.active { color: #fff; background: var(--surface-hover); }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+    }
+
+    /* ── PAGE SYSTEM ── */
+    .page {
+      position: fixed; left: 0; right: 0; top: 70px; bottom: 52px;
+      display: none; overflow-y: auto; background: var(--bg);
+    }
+    .page.active { display: block; }
+    #page-home.active {
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+      height: 52px; background: var(--bg-nav);
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px;
+    }
+    .footer-left  { font-size: 11.5px; color: var(--text-sub); line-height: 1.6; }
+    .footer-right { font-size: 11.5px; color: var(--text-sub); }
+
+    @media (max-width: 768px) {
+      .site-footer { padding: 0 24px; }
+      .footer-right { display: none; }
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+    /* ══ HOME ══ */
+    .home-bg { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .rings-svg {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%); width: 860px; height: 860px; overflow: visible;
+    }
+    .home-content {
+      position: relative; z-index: 1; text-align: center;
+      padding: 0 24px; max-width: 800px;
+    }
+    .home-tag {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
+      color: var(--accent); margin-bottom: 24px;
+    }
+    .home-h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 58px; font-weight: 700; line-height: 1.1;
+      letter-spacing: -0.015em; color: #fff;
+    }
+    .home-h1 .blue { color: var(--accent); display: block; }
+    .home-sub {
+      margin-top: 24px; font-size: 15px; line-height: 1.75;
+      color: #94a3b8; max-width: 570px; margin-left: auto; margin-right: auto; font-weight: 300;
+    }
+    .home-btns { margin-top: 42px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--accent); color: #fff; border: none; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 13.5px; font-weight: 600;
+      padding: 13px 26px; border-radius: 8px; transition: opacity 0.15s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-secondary {
+      background: rgba(255,255,255,0.05); color: #fff; cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.2);
+      font-family: 'Inter', sans-serif; font-size: 13.5px; font-weight: 500;
+      padding: 13px 26px; border-radius: 8px; transition: border-color 0.15s, background 0.15s;
+    }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.09); }
+
+    @media (max-width: 768px) {
+      .home-h1 { font-size: 36px; }
+      .home-sub { font-size: 14px; }
+    }
+
+    /* ══ SHARED SECTION CONTAINER ══ */
+    .section-container {
+      max-width: 1152px; margin: 0 auto; padding: 96px 24px;
+    }
+    .sec-label {
+      font-size: 10.5px; font-weight: 700; letter-spacing: 0.16em;
+      color: var(--accent); text-transform: uppercase;
+      margin-bottom: 18px; display: block;
+    }
+    .sec-h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 34px; font-weight: 700; line-height: 1.15;
+      letter-spacing: -0.01em; color: #fff;
+    }
+    .sec-body {
+      font-size: 14px; line-height: 1.8; color: var(--text-sub); font-weight: 300;
+    }
+
+    /* grids */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+    @media (max-width: 900px) {
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    }
+
+    /* base card */
+    .card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 40px;
+    }
+    .icon-box {
+      width: 44px; height: 44px; background: var(--accent-lo);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .icon-box svg { width: 22px; height: 22px; }
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 10px;
+    }
+    .card-body { font-size: 13px; line-height: 1.75; color: var(--text-sub); font-weight: 300; }
+
+    /* ══ ABOUT ══ */
+    .about-intro { margin-bottom: 80px; }
+    .about-intro .sec-h2 { margin-bottom: 24px; }
+    .about-intro .sec-body { margin-bottom: 40px; max-width: 620px; }
+
+    .intel-banner {
+      background: var(--accent-lo); border: 1px solid var(--accent-border);
+      border-radius: 12px; padding: 40px 48px;
+      display: flex; gap: 24px; align-items: flex-start; margin-bottom: 80px;
+    }
+    .intel-icon {
+      width: 48px; height: 48px; flex-shrink: 0;
+      background: var(--accent-lo); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .intel-icon svg { width: 22px; height: 22px; }
+    .intel-label { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; }
+    .intel-title { font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .intel-body  { font-size: 13px; line-height: 1.75; color: var(--text-sub); font-weight: 300; }
+
+    .values-header { text-align: center; margin-bottom: 48px; }
+    .values-header .sec-label { display: inline-block; }
+    .values-header .sec-h2 { margin-bottom: 0; }
+    .values-sub { font-size: 13.5px; color: var(--text-sub); font-weight: 300; margin-top: 12px; }
+
+    /* ══ SERVICES ══ */
+    .svc-header { margin-bottom: 64px; }
+    .svc-header .sec-h2 { margin-bottom: 16px; }
+    .svc-header .sec-body { margin-bottom: 0; }
+
+    .svc-block {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 32px; align-items: start; margin-bottom: 80px;
+    }
+    .svc-block:last-child { margin-bottom: 0; }
+    @media (max-width: 900px) { .svc-block { grid-template-columns: 1fr; } }
+
+    .svc-num { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+    .svc-divider { height: 1.5px; background: var(--accent); width: 100%; margin-bottom: 24px; }
+    .svc-h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 4px;
+    }
+    .svc-sub   { font-size: 12.5px; font-weight: 600; color: var(--accent); margin-bottom: 16px; }
+    .svc-desc  { font-size: 13px; line-height: 1.8; color: var(--text-sub); margin-bottom: 32px; font-weight: 300; }
+
+    .chk { list-style: none; }
+    .chk li {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 12.5px;
+    }
+    .chk li:last-child { border-bottom: none; }
+    .chk-mark  { color: var(--accent); font-weight: 700; flex-shrink: 0; font-size: 13px; }
+    .chk-title { font-weight: 600; color: #fff; font-size: 12.5px; }
+    .chk-sub   { font-size: 11.5px; color: var(--text-sub); margin-top: 2px; font-weight: 300; }
+
+    /* info card — right panel */
+    .info-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 40px; }
+    .info-card-title { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 18px; }
+    .info-item { padding: 13px 0; border-bottom: 1px solid var(--border); }
+    .info-item:last-child { border-bottom: none; }
+    .info-item-title { font-size: 12.5px; font-weight: 600; color: var(--accent); margin-bottom: 4px; }
+    .info-item-body  { font-size: 12px; color: var(--text-sub); line-height: 1.6; font-weight: 300; }
+
+    /* mini cards — transparent with white border */
+    .mini-card {
+      background: transparent; border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 8px; padding: 18px; margin-bottom: 10px;
+    }
+    .mini-card:last-child { margin-bottom: 0; }
+    .mini-card.callout { background: var(--accent-lo); border-color: var(--accent-border); }
+    .mini-label { font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 5px; display: flex; gap: 5px; align-items: center; }
+    .mini-title { font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 5px; }
+    .mini-body  { font-size: 12px; color: var(--text-sub); line-height: 1.6; font-weight: 300; }
+
+    /* priv-card — same bg as priv-box */
+    .priv-box  { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 26px; margin-bottom: 12px; }
+    .priv-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; margin-bottom: 10px; }
+    .priv-inner { border-left: 3px solid var(--accent); padding-left: 16px; margin-bottom: 16px; }
+    .priv-title { font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .priv-why { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.10); border-radius: 8px; padding: 14px 16px; }
+    .priv-why-title { font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    .priv-why-body  { font-size: 12px; color: var(--text-sub); line-height: 1.65; font-weight: 300; }
+
+    /* ══ FRAMEWORK STEPS (Assess→Deliver) — REMOVABLE BLOCK START ══ */
+    .framework-steps { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+    .framework-step {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 8px; padding: 14px 16px;
+      display: flex; gap: 12px; align-items: flex-start;
+    }
+    .framework-step-icon {
+      width: 28px; height: 28px; flex-shrink: 0;
+      background: hsla(217,91%,60%,0.15); border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .framework-step-icon svg { width: 14px; height: 14px; }
+    .framework-step-title { font-size: 12.5px; font-weight: 600; color: #fff; margin-bottom: 3px; font-family: 'Space Grotesk', sans-serif; }
+    .framework-step-body  { font-size: 11.5px; color: var(--text-sub); line-height: 1.55; font-weight: 300; }
+    /* ══ FRAMEWORK STEPS — REMOVABLE BLOCK END ══ */
+    .contact-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 22px;
+      display: flex; gap: 16px; align-items: center;
+    }
+    .c-icon {
+      width: 38px; height: 38px; flex-shrink: 0;
+      background: var(--accent-lo); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .c-icon svg { width: 18px; height: 18px; }
+    .c-label { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+    .c-val   { font-size: 12.5px; color: #ffffff; font-weight: 400; }
+  </style>
 </head>
+<body>
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">BLNC Holdings</div>
+  <div class="nav-links">
+    <button class="active" onclick="go('home',this)">Home</button>
+    <button onclick="go('about',this)">About</button>
+    <button onclick="go('services',this)">Services</button>
+    <button onclick="go('contact',this)">Contact</button>
+    <button onclick="go('privacy',this)">Privacy Notice</button>
+  </div>
+  <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <button onclick="goMobile('home')">Home</button>
+  <button onclick="goMobile('about')">About</button>
+  <button onclick="goMobile('services')">Services</button>
+  <button onclick="goMobile('contact')">Contact</button>
+  <button onclick="goMobile('privacy')">Privacy Notice</button>
+</div>
+
+<!-- ══ HOME ══ -->
+<div class="page active" id="page-home">
+  <div class="home-bg">
+    <svg class="rings-svg" viewBox="0 0 860 860" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"  stop-color="#2563eb" stop-opacity="0.28"/>
+          <stop offset="45%" stop-color="#1d4ed8" stop-opacity="0.10"/>
+          <stop offset="100%" stop-color="hsl(222,47%,11%)" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="430" cy="430" r="420" fill="url(#glow)"/>
+      <circle cx="430" cy="430" r="395" fill="none" stroke="rgba(147,197,253,0.07)" stroke-width="1"/>
+      <circle cx="430" cy="430" r="265" fill="none" stroke="rgba(147,197,253,0.11)" stroke-width="1"/>
+      <circle cx="430" cy="430" r="142" fill="none" stroke="rgba(147,197,253,0.07)" stroke-width="1"/>
+    </svg>
+  </div>
+  <div class="home-content">
+    <div class="home-tag">LEGAL • TECHNOLOGY • STRATEGY</div>
+    <h1 class="home-h1">Where Law, Technology<span class="blue">&amp; Strategy Align</span></h1>
+    <p class="home-sub">BLNC Holdings provides legal advisory, legal intelligence, and strategic business services to help organisations navigate complexity with clarity and confidence.</p>
+    <div class="home-btns">
+      <button class="btn-primary" onclick="go('about',document.querySelectorAll('.nav-links button')[1])">Discover Our Story →</button>
+      <button class="btn-secondary" onclick="go('services',document.querySelectorAll('.nav-links button')[2])">Explore Services</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ABOUT ══ -->
+<div class="page" id="page-about">
+  <div class="section-container">
+
+    <!-- Intro block -->
+    <div class="about-intro">
+      <span class="sec-label">ABOUT BLNC HOLDINGS</span>
+      <h2 class="sec-h2">Empowering Businesses Through Legal Excellence</h2>
+      <p class="sec-body">BLNC Holdings stands at the intersection of law, technology, and strategy. We are a modern advisory firm dedicated to helping businesses navigate complexity with clarity and confidence. We advise founders, SMEs, and in-house legal teams — translating complex legal and regulatory obligations into clear, actionable strategies.</p>
+      <div class="grid-2">
+        <div class="card">
+          <div class="icon-box">
+            <!-- Vision: telescope/eye icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <div class="card-title">Our Vision</div>
+          <div class="card-body">To be the leading provider of integrated legal, technology, and strategic services — empowering businesses to thrive in an increasingly complex regulatory landscape, with privacy and ethics at the centre of every engagement.</div>
+        </div>
+        <div class="card">
+          <div class="icon-box">
+            <!-- Mission: target/crosshair icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          </div>
+          <div class="card-title">Our Mission</div>
+          <div class="card-body">To deliver exceptional value through innovative legal solutions, intelligent technology, and strategic guidance — helping our clients achieve sustainable growth while managing risk effectively at every stage of their journey.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Legal Intelligence banner -->
+    <div class="intel-banner">
+      <div class="intel-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+      </div>
+      <div>
+        <div class="intel-label">COMING SOON — LEGAL INTELLIGENCE</div>
+        <div class="intel-title">Proprietary Legal Intelligence, Built on Privacy by Design</div>
+        <div class="intel-body">Beyond advisory and consulting services, BLNC is developing a proprietary legal intelligence tool — built in strict accordance with our privacy by design principles. Because access to enterprise-grade legal intelligence should not be reserved for the few.</div>
+      </div>
+    </div>
+
+    <!-- Core Values -->
+    <div class="values-header">
+      <span class="sec-label">OUR CORE VALUES</span>
+      <p class="values-sub">The principles that guide every interaction and decision at BLNC Holdings.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card" style="text-align:center;">
+        <div class="icon-box" style="margin:0 auto 20px;">
+          <!-- Integrity: shield with checkmark -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        </div>
+        <div class="card-title">Integrity</div>
+        <div class="card-body">We uphold the highest ethical standards in every engagement, ensuring trust and transparency in all that we do.</div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div class="icon-box" style="margin:0 auto 20px;">
+          <!-- Innovation: lightbulb -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0018 8 6 6 0 006 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 018.91 14"/></svg>
+        </div>
+        <div class="card-title">Innovation</div>
+        <div class="card-body">We embrace technology and creative solutions to deliver forward-thinking legal and strategic services.</div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div class="icon-box" style="margin:0 auto 20px;">
+          <!-- Client Centric: handshake -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="card-title">Client Centric</div>
+        <div class="card-body">Your success is our priority. We tailor our approach to meet your unique needs and goals.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ SERVICES ══ -->
+<div class="page" id="page-services">
+  <div class="section-container">
+
+    <div class="svc-header">
+      <span class="sec-label">OUR SERVICES</span>
+      <h2 class="sec-h2">Three Pillars of Business Excellence</h2>
+      <p class="sec-body">Integrated services designed to address your legal, technological, and strategic needs under one roof.</p>
+    </div>
+
+    <!-- 01 Legal Advisory -->
+    <div class="svc-block">
+      <div>
+        <div class="svc-num">01</div>
+        <div class="svc-divider"></div>
+        <h3 class="svc-h3">Legal Advisory</h3>
+        <div class="svc-sub">The BLNC Framework™</div>
+        <p class="svc-desc">Our structured approach to legal guidance ensures comprehensive coverage and actionable outcomes — from compliance and contracts to corporate governance and policy drafting.</p>
+        <!-- ══ FRAMEWORK STEPS — REMOVABLE BLOCK START ══ -->
+        <div class="framework-steps">
+          <div class="framework-step">
+            <div class="framework-step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <div><div class="framework-step-title">Assess</div><div class="framework-step-body">Evaluate your current legal landscape and identify risks</div></div>
+          </div>
+          <div class="framework-step">
+            <div class="framework-step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            </div>
+            <div><div class="framework-step-title">Analyze</div><div class="framework-step-body">Deep dive into contracts, compliance, and obligations</div></div>
+          </div>
+          <div class="framework-step">
+            <div class="framework-step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <div><div class="framework-step-title">Align</div><div class="framework-step-body">Develop strategies aligned with your business goals</div></div>
+          </div>
+          <div class="framework-step">
+            <div class="framework-step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div><div class="framework-step-title">Deliver</div><div class="framework-step-body">Implement solutions with ongoing support</div></div>
+          </div>
+        </div>
+        <!-- ══ FRAMEWORK STEPS — REMOVABLE BLOCK END ══ -->
+        <ul class="chk">
+          <li><span class="chk-mark">✓</span><div><div class="chk-title" style="font-weight:400;">Contract Review &amp; Drafting</div></div></li>
+          <li><span class="chk-mark">✓</span><div><div class="chk-title" style="font-weight:400;">Compliance Assessment &amp; Gap Analysis</div></div></li>
+          <li><span class="chk-mark">✓</span><div><div class="chk-title" style="font-weight:400;">Corporate Governance Advisory</div></div></li>
+          <li><span class="chk-mark">✓</span><div><div class="chk-title" style="font-weight:400;">Policy Drafting &amp; Implementation</div></div></li>
+          <li><span class="chk-mark">✓</span><div><div class="chk-title" style="font-weight:400;">Regulatory Risk Management</div></div></li>
+          <li><span class="chk-mark">✓</span><div><div class="chk-title" style="font-weight:400;">Legal Strategy Development</div></div></li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <div class="info-card-title">Structured Legal Excellence</div>
+        <div class="mini-card"><div class="info-item-title">Governance</div><div class="info-item-body">Board structures, director duties, and policy standards for modern organisations</div></div>
+        <div class="mini-card"><div class="info-item-title">Compliance</div><div class="info-item-body">POPIA, GDPR, and sector-specific regulatory compliance and reporting</div></div>
+      </div>
+    </div>
+
+    <!-- 02 Business Consulting -->
+    <div class="svc-block">
+      <div class="info-card">
+        <div class="info-card-title">Data &amp; AI Readiness</div>
+        <div class="mini-card"><div class="mini-label" style="color:var(--accent);font-weight:600;">AI Readiness</div><div class="mini-body">Diagnostic assessment of your firm's data maturity and AI adoption readiness</div></div>
+        <div class="mini-card"><div class="mini-label" style="color:var(--accent);font-weight:600;">Regulation</div><div class="mini-body">AI implementation aligned with applicable regulation and data protection law</div></div>
+        <div class="mini-card callout" style="margin-top:24px;">
+          <div class="mini-label">🔗 Linked to Legal Advisory</div>
+          <div class="mini-body">Our consulting offering is directly connected to the BLNC Legal Advisory Framework — ensuring your technology decisions are always legally sound and strategically grounded.</div>
+        </div>
+      </div>
+      <div>
+        <div class="svc-num">02</div>
+        <div class="svc-divider"></div>
+        <h3 class="svc-h3">Business Consulting</h3>
+        <div class="svc-sub">The BLNC Advantage™</div>
+        <p class="svc-desc">We provide business consulting to deliver a diagnostic assessment on your firm's data and AI readiness — helping you transform intelligently and in full compliance with applicable regulation.</p>
+        <ul class="chk">
+          <li><span class="chk-mark">✓</span><div><div class="chk-title" style="font-weight:400;">Data &amp; AI Readiness Assessment</div></div></li>
+          <li><span class="chk-mark">✓</span><div><div class="chk-title" style="font-weight:400;">AI Implementation Strategy &amp; Compliance</div></div></li>
+          <li><span class="chk-mark">✓</span><div><div class="chk-title" style="font-weight:400;">Digital Transformation Advisory</div></div></li>
+          <li><span class="chk-mark">✓</span><div><div class="chk-title" style="font-weight:400;">Technology Recommendations</div></div></li>
+          <li><span class="chk-mark">✓</span><div><div class="chk-title" style="font-weight:400;">Process Optimisation &amp; Workflow Design</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 03 Business Excellence -->
+    <div class="svc-block">
+      <div>
+        <div class="svc-num">03</div>
+        <div class="svc-divider"></div>
+        <h3 class="svc-h3">Business Excellence</h3>
+        <div class="svc-sub">Privacy by Design</div>
+        <p class="svc-desc">At BLNC Holdings, privacy is not a service we sell — it is the standard by which we operate. Privacy by design is embedded into our own infrastructure, our internal processes, and every client engagement we undertake.</p>
+        <div class="priv-card"><div class="mini-title">How We Operate</div><div class="mini-body">Our internal systems are built on data minimisation, purpose limitation and security by default</div></div>
+        <div class="priv-card"><div class="mini-title">What We Collect</div><div class="mini-body">We do not collect or process information beyond what is strictly necessary for each engagement</div></div>
+        <div class="priv-card"><div class="mini-title">Our Infrastructure</div><div class="mini-body">Privacy-first tooling and workflows govern how we store, process and share information internally</div></div>
+        <div class="priv-card"><div class="mini-title">Our Standard</div><div class="mini-body">We apply the same POPIA and international data protection obligations to ourselves that we advise clients to meet</div></div>
+      </div>
+      <div>
+        <div class="priv-box">
+          <div class="priv-inner">
+            <div class="priv-title">Privacy is Not Optional.</div>
+            <div class="mini-body">It is built into how we think, how we work, and how we protect the information entrusted to us by every client we serve.</div>
+          </div>
+          <div class="priv-why">
+            <div class="priv-why-title">Why This Matters</div>
+            <div class="priv-why-body">Clients who engage a legal and advisory firm are sharing sensitive, often confidential information. Our privacy-by-design infrastructure ensures that information is safeguarded at every point — not because regulation requires it, but because it is the right way to operate.</div>
+          </div>
+        </div>
+        <div class="mini-card callout" style="margin-top:12px;">
+          <div class="mini-label" style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">CLIENT DATA SOVEREIGNTY — GUARANTEED</div>
+          <div class="mini-title" style="margin-top:6px;">Local AI Infrastructure</div>
+          <div class="mini-body">Our AI systems run on local infrastructure with human-in-the-loop oversight built into every workflow. Your documents never leave our controlled environment and never reach an external server — ensuring complete data sovereignty at every stage of engagement.</div>
+        </div>
+        <div class="mini-card callout" style="margin-top:10px;">
+          <div class="mini-label">🛡 Our Commitment to You</div>
+          <div class="mini-body">When you engage BLNC Holdings, you are working with a firm that practises what it preaches. Our privacy-first foundation is not a marketing position — it is a measurable operational reality.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ CONTACT ══ -->
+<div class="page" id="page-contact">
+  <div class="section-container">
+    <span class="sec-label">CONTACT US</span>
+    <h2 class="sec-h2" style="margin-bottom:16px;">Let's Start a Conversation</h2>
+    <p class="sec-body" style="margin-bottom:40px;">Have a question or ready to get started? Reach out directly and we'll be in touch within 24–48 business hours.</p>
+
+    <div class="grid-2" style="margin-bottom:32px;">
+      <div class="contact-card">
+        <div class="c-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div><div class="c-label">Email</div><div class="c-val">contact@blncholdings.co.za</div></div>
+      </div>
+      <div class="contact-card">
+        <div class="c-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+        </div>
+        <div><div class="c-label">Website</div><div class="c-val">www.blncholdings.co.za</div></div>
+      </div>
+    </div>
+    <div class="grid-2" style="margin-bottom:32px;">
+      <div class="card"><div class="card-title">Response Time</div><div class="card-body" style="margin-top:8px;">We typically respond to all enquiries within 24–48 business hours. For urgent matters, please indicate this when you reach out.</div></div>
+      <div class="card"><div class="card-title">What to Expect</div><div class="card-body" style="margin-top:8px;">We'll review your enquiry and connect you with the right advisor for your legal, technology, or strategic needs.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PRIVACY NOTICE ══ -->
+<div class="page" id="page-privacy">
+  <div class="section-container">
+    <span class="sec-label">PRIVACY NOTICE</span>
+    <h2 class="sec-h2" style="margin-bottom:16px;">Your Privacy Matters</h2>
+    <p class="sec-body" style="margin-bottom:40px;">At BLNC Holdings, privacy is not a service we sell — it is the standard by which we operate. We are committed to protecting your personal information in accordance with applicable data protection legislation.</p>
+
+    <div class="grid-2" style="margin-bottom:32px;">
+      <div class="card" style="display:flex;gap:16px;align-items:flex-start;border-radius:16px;padding:22px;">
+        <div class="c-icon" style="flex-shrink:0;margin-top:2px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        </div>
+        <div><div class="card-title">Data Protection</div><div class="card-body" style="margin-top:8px;">Any information you share is handled in accordance with our privacy-first principles and applicable data protection legislation, including POPIA and GDPR.</div></div>
+      </div>
+      <div class="card" style="display:flex;gap:16px;align-items:flex-start;border-radius:16px;padding:22px;">
+        <div class="c-icon" style="flex-shrink:0;margin-top:2px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        </div>
+        <div><div class="card-title">Data Minimisation</div><div class="card-body" style="margin-top:8px;">We do not collect or process information beyond what is strictly necessary for each engagement. Purpose limitation and security by default govern our operations.</div></div>
+      </div>
+    </div>
+    <div class="mini-card callout" style="padding:18px;border-radius:10px;">
+      <div class="mini-label">🛡 Our Commitment</div>
+      <div class="mini-body" style="margin-top:4px;">When you engage BLNC Holdings, you are working with a firm that practises what it preaches. Our privacy-first foundation is not a marketing position — it is a measurable operational reality.</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="site-footer">
+  <div class="footer-left">BLNC Holdings<br>Where Law, Technology &amp; Strategy Align</div>
+  <div class="footer-right">© 2025 BLNC Holdings. All rights reserved.</div>
+</div>
+
+<script>
+  function go(id, btn) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links button, .mobile-menu button').forEach(b => b.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    if (btn) btn.classList.add('active');
+    document.getElementById('mobile-menu').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+  }
+
+  function goMobile(id) {
+    const btns = document.querySelectorAll('.nav-links button');
+    const map = { home: 0, about: 1, services: 2, contact: 3, privacy: 4 };
+    go(id, btns[map[id]]);
+    document.querySelectorAll('.mobile-menu button').forEach((b, i) => {
+      b.classList.toggle('active', i === map[id]);
+    });
+  }
+
+  function toggleMenu() {
+    document.getElementById('mobile-menu').classList.toggle('open');
+    document.getElementById('hamburger').classList.toggle('open');
+  }
+</script>
+</body>
 </html>
